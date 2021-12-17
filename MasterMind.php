@@ -1,25 +1,16 @@
 <?php
 
-namespace MasterMind;
-
 class MasterMind
 {
-
     public function getScore(array $masterColors, array $playerColors)
     {
-        $result = [0,0];
-        for($i = 0; $i < count($masterColors); $i++) {
-            if (in_array($playerColors[$i],$masterColors)) {
-                $result[0]++;
-            }
-            if ($masterColors[$i] === $playerColors[$i]) {
-                $result[0]--;
-                $result[1]++;
-            }
+        $scores = ["in" => 0, "good" => 0];
+
+        for ($i = 0; $i < count($masterColors); $i++) {
+            if (in_array($playerColors[$i], $masterColors)) $scores['in']++;
+            if ($playerColors[$i] === $masterColors[$i]) $scores["good"]++;
         }
-        if ($result[1] === 4) {
-            $result = 'win';
-        }
-        return $result;
+
+        return [$scores['in'] - $scores["good"], $scores["good"]];
     }
 }
